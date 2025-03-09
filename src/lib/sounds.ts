@@ -17,13 +17,13 @@ class SoundPlayer {
 
     const soundUrls = {
       trace:
-        "https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/sounds/pencil-trace.mp3",
+        "https://assets.mixkit.co/active_storage/sfx/2073/2073-preview.mp3",
       success:
-        "https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/sounds/success.mp3",
+        "https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3",
       error:
-        "https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/sounds/error.mp3",
+        "https://assets.mixkit.co/active_storage/sfx/2053/2053-preview.mp3",
       celebration:
-        "https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/sounds/celebration.mp3",
+        "https://assets.mixkit.co/active_storage/sfx/1434/1434-preview.mp3",
     };
 
     // Set sources and load sounds
@@ -44,11 +44,14 @@ class SoundPlayer {
     const sound = this.sounds[soundName];
     if (sound) {
       sound.currentTime = 0;
-      sound.volume = 0.5; // Set volume to 50%
-      sound.play().catch(() => {
+      sound.volume = 0.3; // Set volume to 30%
+      sound.play().catch((e) => {
+        console.log("Sound play failed", e);
         // If play fails, try to initialize and play again
         this.initialize();
-        sound.play().catch(() => {});
+        sound.play().catch((e) => {
+          console.log("Sound play failed again", e);
+        });
       });
     }
   }
